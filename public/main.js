@@ -19,17 +19,35 @@ console.log('hi from main')
 // ];
 
 
-// var getGeoData = $.get('/data.json', function( response ) {
-//     markerData = response;
-//     return markerData
-//   });
+// User location use this as reference for finding location
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
 
-// var markerData;
+function success(pos) {
+  var crd = pos.coords;
 
-// $.get('/data.json', function( response ) {
-//     markerData = response;
-//     return markerData
-//   });
+  console.log('Your current position is:');
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+};
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+
+
+
+
+
+
 
 
 function initMap() {
