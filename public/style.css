@@ -3,3 +3,8 @@
   height: 600px;
   background-color: grey;
 }
+
+.infowindow_img {
+  width: 50%;
+  height: 50%;
+}
