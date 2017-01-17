@@ -18,9 +18,10 @@ router.post('/addNewSpot', function(request, response, next) {
   var entry = {
     description: request.body.description,
     category: request.body.category,
+    coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
+
   };
-  console.log(request.body.description, request.body.category);
-  // response.send('' + request.body.description + ' ' + request.body.category);
+  console.log(entry);
 
   mongo.connect(url, function(err, db) {
     db.collection('buildings').insertOne(entry, function(err, result) {

@@ -29,6 +29,10 @@ var options = {
 function success(pos) {
   var crd = pos.coords;
 
+  // auto populate coordinate fields for addNewSpot
+  $('#lat').val(crd.latitude);
+  $('#lng').val(crd.longitude);
+
   console.log('Your current position is:');
   console.log(`Latitude : ${crd.latitude}`);
   console.log(`Longitude: ${crd.longitude}`);
@@ -40,8 +44,6 @@ function error(err) {
 };
 
 navigator.geolocation.getCurrentPosition(success, error, options);
-
-
 
 
 
