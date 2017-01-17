@@ -22,6 +22,7 @@
     "express-handlebars": "^3.0.0",
     "mongodb": "^2.2.21",
     "morgan": "^1.7.0",
+    "multer": "^1.2.1",
     "path": "^0.12.7"
   }
 }

@@ -1,4 +1,4 @@
-console.log('hi from main')
+console.log('hi from main');
 
   // My coordinates
   //34.154413, -118.120233
@@ -51,7 +51,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 
 
-
+// Create the Map and the markers
 function initMap() {
 
   // Create the Map
@@ -69,7 +69,6 @@ function initMap() {
       var marker = new google.maps.Marker({
         position: obj.coordinates,
         map: map,
-        title: 'Hello World!' //what displays when mouse over
       });
 
       // Create info window with object database info

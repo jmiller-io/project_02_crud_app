@@ -1,17 +1,15 @@
 <h1>{{title}}</h1>
 <section class="insert">
     <h3>Insert Data</h3>
-    <form action="/addNewSpot" method="post">
-      <!--
-        <div class="input">
-          <label for="img">Image</label>
-          <input type="file" id="img" name="img">
-        </div>
-        -->
+    <form action="/addNewSpot" method="post" enctype="multipart/form-data">
+      <div class="input">
+        <label for="img">Image</label>
+        <input type="file" name="myimg">
+      </div>
       <div class="input">
         <label for="location">Location</label>
-        <input type="text" value="latitude" id="lat" name="lat">
-        <input type="text" value="longitude" id="lng" name="lng">
+        <input type="text" placeholder="Enter Latitude" id="lat" name="lat">
+        <input type="text" placeholder="Enter Longitude" id="lng" name="lng">
       </div>
       <div class="input">
         <label for="description">Description</label>
