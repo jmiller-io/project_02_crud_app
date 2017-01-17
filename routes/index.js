@@ -2,7 +2,39 @@ var express = require('express');
 var router = express.Router();
 var mongo = require('mongodb').MongoClient;
 var multer = require('multer');
-var upload = multer({dest: 'public/img_uploads/'});
+
+
+
+
+
+
+var randomFileName = function() {
+  var letters = "abcdefghijklmnopqrstuvwxyz";
+  var randName = '';
+  while (randName.length < 16) {
+    randName += letters[Math.floor(Math.random() * letters.length)]
+  };
+  return randName;
+};
+
+
+
+
+
+// storage and file specifications for multer
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/img_uploads')
+  },
+  filename: function (req, file, cb) {
+    var extensionArray = file.mimetype.split('/');
+    var extension = extensionArray[extensionArray.length - 1];
+    cb(null, randomFileName() + '.' + extension)
+    console.log(file)
+  }
+})
+
+var upload = multer({storage: storage});
 
 // DB url
 var url = 'mongodb://localhost:27017/structures';
@@ -17,23 +49,26 @@ router.get('/addNewSpot', function(request, response, next) {
 
 // handle post request on addNewSpot
 router.post('/addNewSpot', upload.any(), function(request, response, next) {
+  // var imgpath = request.files[0].path;
+  // imgpath = imgpath.substring(7,imgpath.length);
   var entry = {
-    img: request.files,
+    // WORKS imgLocation: request.files[0].path,
+    imgLocation: request.files[0].path.substring(7, this.length),
     description: request.body.description,
     category: request.body.category,
     coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
 
   };
 
-  response.send(entry.img)
+  response.send(entry.imgLocation);
 
-  // mongo.connect(url, function(err, db) {
-  //   db.collection('buildings').insertOne(entry, function(err, result) {
-  //     console.log('Entry inserted');
-  //     db.close();
-  //   });
-  // });
-  // response.redirect('/');
+  mongo.connect(url, function(err, db) {
+    db.collection('buildings').insertOne(entry, function(err, result) {
+      console.log('Entry inserted');
+      db.close();
+    });
+  });
+  response.redirect('/');
 });
 
 // route presenting json data
