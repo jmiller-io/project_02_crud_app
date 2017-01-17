@@ -20,7 +20,7 @@ var structures = [
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 34.2, lng: -118.3},
+    center: {lat: 34.154413, lng: -118.120233},
     zoom: 14
   });
 
@@ -34,7 +34,7 @@ function initMap() {
     });
 
     var infowindow = new google.maps.InfoWindow({
-        content: "Echo" // in the windo
+        content: '<img src="img_uploads/example_bungalow.jpeg"><br /> <p>Beautiful Craftsman Bungalow in Pasadena.</p>' // in the windo
       });
 
       marker.addListener('click', function() {
