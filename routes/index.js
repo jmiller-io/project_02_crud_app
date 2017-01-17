@@ -37,7 +37,7 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage});
 
 // DB url
-var url = 'mongodb://localhost:27017/structures';
+var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/structures';
 
 
 // Router for adding a new spot
