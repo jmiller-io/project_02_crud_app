@@ -18,6 +18,13 @@ var structures = [
 ];
 
 
+$.get('/data.json', function( response ) {
+  var markerData = JSON.stringify(response);
+});
+
+
+
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 34.154413, lng: -118.120233},
@@ -34,7 +41,7 @@ function initMap() {
     });
 
     var infowindow = new google.maps.InfoWindow({
-        content: '<img src="img_uploads/example_bungalow.jpeg"><br /> <p>Beautiful Craftsman Bungalow in Pasadena.</p>' // in the windo
+        content: '<img src="img_uploads/example_bungalow.jpeg"><br /> <p>Beautiful Craftsman Bungalow in Pasadena.</p><p>Category: <i>Bungalow</i></p>' // in the windo
       });
 
       marker.addListener('click', function() {
