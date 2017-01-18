@@ -3,23 +3,19 @@ var router = express.Router();
 var mongo = require('mongodb').MongoClient;
 var multer = require('multer');
 
-
-
-
-
-
-var randomFileName = function() {
+// generates random file name and adds an extension
+var generateRandomFileName = function(f) {
   var letters = "abcdefghijklmnopqrstuvwxyz";
   var randName = '';
+
+  var extensionArray = f.mimetype.split('/');
+  var extension = extensionArray[extensionArray.length - 1];
+
   while (randName.length < 16) {
     randName += letters[Math.floor(Math.random() * letters.length)]
   };
-  return randName;
+  return randName + extension;
 };
-
-
-
-
 
 // storage and file specifications for multer
 var storage = multer.diskStorage({
@@ -27,10 +23,7 @@ var storage = multer.diskStorage({
     cb(null, 'public/img_uploads')
   },
   filename: function (req, file, cb) {
-    var extensionArray = file.mimetype.split('/');
-    var extension = extensionArray[extensionArray.length - 1];
-    cb(null, randomFileName() + '.' + extension)
-    console.log(file)
+    cb(null, generateRandomFileName(file))
   }
 })
 
