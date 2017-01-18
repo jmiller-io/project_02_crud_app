@@ -63,7 +63,7 @@ router.post('/addNewSpot', upload.any(), function(request, response, next) {
       db.close();
     });
   });
-  response.render('/');
+  response.redirect('/');
 });
 
 
