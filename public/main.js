@@ -47,32 +47,6 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 
 
-// Add click event to body for entry updating
-$('body').click(function(evt){
-  if(evt.target.classList.contains('editEntry')) {
-    //console.log('you want to edit entry')
-    var objID = $(evt.target).siblings().last().children().text();
-    $.get('/updateSpot?id=' + objID, function(response) {
-      console.log(response)
-    })
-  } else if (evt.target.classList.contains('deleteEntry')) {
-    var entryID = $(event.target).next('p').text();
-    $.ajax({
-      url: '/deleteSpot',
-      data: {id: entryID},
-      success: function(response) {
-        console.log(response)
-      },
-      error: function (xhr) {
-        console.log(xhr)
-      }
-    });
-    //Do nothing
-  };
-});
-
-
-
 
 // Create the Map and the markers
 function initMap() {
