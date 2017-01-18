@@ -55,9 +55,20 @@ $('body').click(function(evt){
     $.get('/updateSpot?id=' + objID, function(response) {
       console.log(response)
     })
-  } else {
+  } else if (evt.target.classList.contains('deleteEntry')) {
+    var entryID = $(event.target).next('p').text();
+    $.ajax({
+      url: '/deleteSpot',
+      data: {id: entryID},
+      success: function(response) {
+        console.log(response)
+      },
+      error: function (xhr) {
+        console.log(xhr)
+      }
+    });
     //Do nothing
-  }
+  };
 });
 
 

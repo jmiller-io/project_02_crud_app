@@ -9,7 +9,7 @@
   height: 50%;
 }*/
 
-.img_container {
+.current_entry_data {
   display: inline-block;
   float: left;
   border: 3px solid red;
@@ -18,8 +18,10 @@
 
 .headings {
   font-weight: bold;
+  line-height: 0;
 }
-.form_container {
+
+#updateForm {
   display: inline-block;
   float: right;
   border: 3px solid blue;
@@ -27,7 +29,7 @@
 
 .posting {
   border: 1px solid black;
-  height: 400px;
+  height: 425px;
   width: 100%;
   margin-bottom: 6%;
 }

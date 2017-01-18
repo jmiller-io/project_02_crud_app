@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongo = require('mongodb').MongoClient;
+var objectId = require('mongodb').ObjectID;
 var multer = require('multer');
 
 // DB url
@@ -78,6 +79,22 @@ router.get('/updateSpot', function(request, response, next) {
     });
   });
 });
+
+
+// Handle Delete Request
+router.get('/deleteSpot?:id', function(request, response, next) {
+
+
+  mongo.connect(url, function(err, db) {
+    console.log('finding id  ' +  request.query.id)
+    db.collection('buildings').deleteOne({"_id": objectId(request.query.id)}, function(err, result) {
+
+      console.log("Item deleted: " + request.query.id);
+      db.close();
+    });
+    //response.send('Deleted from Database');
+  })
+})
 
 // route presenting json data
 router.get('/data.json', function (request, response) {
