@@ -3,6 +3,9 @@ var router = express.Router();
 var mongo = require('mongodb').MongoClient;
 var multer = require('multer');
 
+// DB url
+var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
+
 // generates random file name and adds an extension
 var generateRandomFileName = function(f) {
   var letters = "abcdefghijklmnopqrstuvwxyz";
@@ -29,8 +32,8 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage});
 
-// DB url
-var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
+
+
 
 
 // Router for adding a new spot

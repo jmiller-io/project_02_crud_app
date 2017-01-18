@@ -4,6 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
+var favicon = require('serve-favicon');
 
 var app = express();
 
@@ -22,6 +23,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon( __dirname + '/public/favicon.ico'));
 
 // apply the routes to our app
 app.use('/', routes);
