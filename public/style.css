@@ -4,7 +4,30 @@
   background-color: grey;
 }
 
-.infowindow_img {
+/*.infowindow_img {
   width: 50%;
   height: 50%;
+}*/
+
+.img_container {
+  display: inline-block;
+  float: left;
+  border: 3px solid red;
+  width: 50%;
+}
+
+.headings {
+  font-weight: bold;
+}
+.form_container {
+  display: inline-block;
+  float: right;
+  border: 3px solid blue;
+}
+
+.posting {
+  border: 1px solid black;
+  height: 400px;
+  width: 100%;
+  margin-bottom: 6%;
 }

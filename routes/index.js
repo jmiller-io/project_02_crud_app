@@ -62,7 +62,21 @@ router.post('/addNewSpot', upload.any(), function(request, response, next) {
       db.close();
     });
   });
-  response.redirect('/');
+  response.render('/');
+});
+
+
+// handle updateSpot get request
+router.get('/updateSpot', function(request, response, next) {
+  //console.log(request.query.id);
+  mongo.connect(url, function(err, db) {
+    db.collection('buildings').find({}).toArray(function(err, results) {
+      db.close();
+      response.render('updateSpot', {title: 'Make changes to Places',
+                                 items: results
+      });
+    });
+  });
 });
 
 // route presenting json data

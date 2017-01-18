@@ -47,6 +47,18 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 
 
+// Add click event to body for entry updating
+$('body').click(function(evt){
+  if(evt.target.classList.contains('editEntry')) {
+    //console.log('you want to edit entry')
+    var objID = $(evt.target).siblings().last().children().text();
+    $.get('/updateSpot?id=' + objID, function(response) {
+      console.log(response)
+    })
+  } else {
+    //Do nothing
+  }
+});
 
 
 
@@ -71,9 +83,11 @@ function initMap() {
         map: map,
       });
 
+       marker.set("editing", true);
+
       // Create info window with object database info
       var infowindow = new google.maps.InfoWindow({
-        content: '<img class="infowindow_img" src="' + obj.imgLocation + '"><br /> <p>' + obj.description + '</p><p>Category: <i>' + obj.category + '</i></p>' // in the windo
+        content: '<div><i class="material-icons editEntry">mode_edit</i><br><img class="infowindow_img" src="' + obj.imgLocation + '"><br /> <p> Description: ' + obj.description + '</p><p>Category: <i>' + obj.category + '</i></p><p>ID: <span class="id">' + obj._id + '</span></p></div>' // in the windo
       });
 
       // info window event listener

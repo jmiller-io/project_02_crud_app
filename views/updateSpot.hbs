@@ -1,0 +1,51 @@
+<section class="container">
+  <h1>{{title}}</h1>
+
+  {{#each items}}
+    <div class="posting">
+      <div class="img_container">
+        <img src="{{this.imgLocation}}" class="img">
+        <p><span class="headings">Description: </span> {{this.description}}</p>
+        <p><span class="headings">Category: </span> {{this.category}}</p>
+        <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
+        <p><span class="headings">ID: </span> {{this._id}}</p>
+      </div>
+      <div class="form_container">
+        <form action="/addNewSpot" method="post" enctype="multipart/form-data">
+          <div class="input">
+            <label for="img">New Image</label>
+            <input type="file" name="myimg">
+          </div>
+          <div class="input">
+            <label for="location">Location</label>
+            <input type="text" placeholder="Enter Latitude" id="lat" name="lat">
+            <input type="text" placeholder="Enter Longitude" id="lng" name="lng">
+          </div>
+          <div class="input">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description">
+          </div>
+          <div class="input">
+            <label for="category">Category</label><br>
+            <input name="categories" type="radio" id="Craftsman Bungalow">Craftsman Bungalow<br>
+            <input type="radio" name="categories" value="Prairie Style">Prairie Style<br>
+            <input type="radio" name="categories" value="Brutalist" checked>Brutalist<br>
+          </div>
+          <button type="submit">Update</button>
+          <button>Delete Entry</button>
+        </form>
+      </div>
+    </div>
+  <!-- <div class="updateDivs">
+      <label for="description">Description</label>
+      <input type="text" id="description" name="description" value="{{this.description}}">
+
+      <label for="category">Category</label>
+      <input type="text" id="category" name="category" value="{{this.category}}">
+
+        <label for="location">Location</label>
+        <input type="text" placeholder="Enter Latitude" id="lat" name="lat" value="{{this.lat}}">
+        <input type="text" placeholder="Enter Longitude" id="lng" name="lng" value="{{this.lng}}">
+  </div> -->
+  {{/each}}
+</section>
