@@ -37,7 +37,7 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage});
 
 // DB url
-var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/structures';
+var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
 
 
 // Router for adding a new spot
@@ -59,8 +59,6 @@ router.post('/addNewSpot', upload.any(), function(request, response, next) {
     coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
 
   };
-
-  response.send(entry.imgLocation);
 
   mongo.connect(url, function(err, db) {
     db.collection('buildings').insertOne(entry, function(err, result) {
