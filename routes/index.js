@@ -27,7 +27,7 @@ var storage = multer.diskStorage({
     cb(null, 'public/img_uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, generateRandomFileName(file))
+    cb(null, generateRandomFileName(file) )
   }
 })
 
@@ -46,10 +46,8 @@ router.get('/addNewSpot', function(request, response, next) {
 
 // handle post request on addNewSpot
 router.post('/addNewSpot', upload.any(), function(request, response, next) {
-  // var imgpath = request.files[0].path;
-  // imgpath = imgpath.substring(7,imgpath.length);
+
   var entry = {
-    // WORKS imgLocation: request.files[0].path,
     imgLocation: request.files[0].path.substring(7, this.length),
     description: request.body.description,
     category: request.body.category,
@@ -79,6 +77,35 @@ router.get('/updateSpot', function(request, response, next) {
     });
   });
 });
+
+
+// Handle UpdateSpot POST Request
+router.post('/updateSpot', upload.any(), function(request, response, next) {
+
+  var entry = {};
+  for (var key in request.body) {
+    if (request.body[key] !== "") {
+      entry[key] = request.body[key]
+    }
+  }
+  // response.send(entry);
+  // var entry = {
+  //   imgLocation: request.files[0].path.substring(7, this.length),
+  //   description: request.body.description,
+  //   category: request.body.category,
+  //   coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
+
+  // };
+  mongo.connect(url, function(err, db) {
+    db.collection('buildings').updateOne(entry, function(err, result) {
+      console.log('Entry updated');
+      db.close();
+    });
+  });
+  // response.redirect('/');
+});
+
+
 
 
 // Handle Delete Request

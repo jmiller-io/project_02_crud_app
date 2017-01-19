@@ -9,7 +9,7 @@
         <p><span class="headings">Category: </span> {{this.category}}</p>
         <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
       </div>
-        <form id="updateForm" action="/addNewSpot" method="post" enctype="multipart/form-data">
+        <form id="updateForm" action="/updateSpot" method="post" enctype="multipart/form-data">
           <div class="input">
             <label for="img">New Image</label>
             <input type="file" name="myimg">
@@ -27,10 +27,14 @@
             <label for="category">Category</label>
             <input type="text" id="category" name="category">
           </div>
+          <div class="input">
+          <label for="id">Id</label>
+          <input type="text" id="id" name="id" readonly value="{{this._id}}">
+          </div>
           <button type="submit">Update</button>
         </form>
         <button class="deleteEntry">Delete Entry</button>
-        <p>{{this._id}}</p>
+        <p class="entryID" style="visibility: hidden">{{this._id}}</p>
     </div>
   {{/each}}
   <script src="updateSpots.js"></script>
