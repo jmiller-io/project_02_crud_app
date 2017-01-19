@@ -21,6 +21,7 @@ var generateRandomFileName = function(f) {
   return randName + extension;
 };
 
+
 // storage and file specifications for multer
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -46,22 +47,20 @@ router.get('/addNewSpot', function(request, response, next) {
 
 // handle post request on addNewSpot
 router.post('/addNewSpot', upload.any(), function(request, response, next) {
-
   var entry = {
     imgLocation: request.files[0].path.substring(7, this.length),
     description: request.body.description,
     category: request.body.category,
     coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
-
   };
 
   mongo.connect(url, function(err, db) {
     db.collection('buildings').insertOne(entry, function(err, result) {
       console.log('Entry inserted');
       db.close();
+      response.redirect('/');
     });
   });
-  response.redirect('/');
 });
 
 
@@ -81,47 +80,35 @@ router.get('/updateSpot', function(request, response, next) {
 
 // Handle UpdateSpot POST Request
 router.post('/updateSpot', upload.any(), function(request, response, next) {
-
-  var entry = {};
+  var id = request.body._id;
+  var entry = {
+    $set: {}
+  };
   for (var key in request.body) {
-    if (request.body[key] !== "") {
-      entry[key] = request.body[key]
+    if (request.body[key] !== "" && key !== '_id') {
+      entry.$set[key] = request.body[key]
     }
   }
-  // response.send(entry);
-  // var entry = {
-  //   imgLocation: request.files[0].path.substring(7, this.length),
-  //   description: request.body.description,
-  //   category: request.body.category,
-  //   coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
-
-  // };
   mongo.connect(url, function(err, db) {
-    db.collection('buildings').updateOne(entry, function(err, result) {
-      console.log('Entry updated');
-      db.close();
-    });
-  });
-  // response.redirect('/');
+        db.collection('buildings').update( {"_id": objectId(id)}, entry )
+        db.close();
+        response.redirect('/updateSpot')
+      });
 });
-
-
 
 
 // Handle Delete Request
 router.get('/deleteSpot?:id', function(request, response, next) {
-
-
   mongo.connect(url, function(err, db) {
     console.log('finding id  ' +  request.query.id)
     db.collection('buildings').deleteOne({"_id": objectId(request.query.id)}, function(err, result) {
 
       console.log("Item deleted: " + request.query.id);
       db.close();
+      response.redirect('/updateSpot')
     });
-    //response.send('Deleted from Database');
-  })
-})
+  });
+});
 
 // route presenting json data
 router.get('/data.json', function (request, response) {

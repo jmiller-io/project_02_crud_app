@@ -6,13 +6,7 @@ $('body').click(function(evt){
     var entryID = $(event.target).next('p').text();
     $.ajax({
       url: '/deleteSpot',
-      data: {id: entryID},
-      success: function(response) {
-        console.log(response)
-      },
-      error: function (xhr) {
-        console.log(xhr)
-      }
+      data: {id: entryID}
     });
   } else {
     // Do nothing
