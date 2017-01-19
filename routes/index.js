@@ -38,14 +38,14 @@ var upload = multer({storage: storage});
 
 
 // Router for adding a new spot
-router.get('/addNewSpot', function(request, response, next) {
-  // render the addNewSpot.hbs template and replace {{title}} with 'Add a New Spot'
-  response.render('addNewSpot', {title: 'Add a New Spot'});
+router.get('/addSpot', function(request, response, next) {
+  // render the addSpot.hbs template and replace {{title}} with 'Add a New Spot'
+  response.render('addSpot', {title: 'Add a New Spot'});
 });
 
 
-// handle post request on addNewSpot
-router.post('/addNewSpot', upload.any(), function(request, response, next) {
+// handle post request on addSpot
+router.post('/addSpot', upload.any(), function(request, response, next) {
   var entry = {
     imgURL: request.files[0].path.substring(7, this.length),
     description: request.body.description,
