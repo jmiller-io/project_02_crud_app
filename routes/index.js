@@ -18,7 +18,7 @@ var generateRandomFileName = function(f) {
   while (randName.length < 16) {
     randName += letters[Math.floor(Math.random() * letters.length)]
   };
-  return randName + extension;
+  return randName + '.' + extension;
 };
 
 
