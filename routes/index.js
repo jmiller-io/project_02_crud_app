@@ -15,7 +15,7 @@ var generateRandomFileName = function(f) {
   var extensionArray = f.mimetype.split('/');
   var extension = extensionArray[extensionArray.length - 1];
 
-  while (randName.length < 16) {
+  while (randName.length < 32) {
     randName += letters[Math.floor(Math.random() * letters.length)]
   };
   return randName + '.' + extension;
@@ -30,8 +30,7 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, generateRandomFileName(file) )
   }
-})
-
+});
 var upload = multer({storage: storage});
 
 
@@ -48,12 +47,11 @@ router.get('/addNewSpot', function(request, response, next) {
 // handle post request on addNewSpot
 router.post('/addNewSpot', upload.any(), function(request, response, next) {
   var entry = {
-    imgLocation: request.files[0].path.substring(7, this.length),
+    imgURL: request.files[0].path.substring(7, this.length),
     description: request.body.description,
     category: request.body.category,
     coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
   };
-
   mongo.connect(url, function(err, db) {
     db.collection('buildings').insertOne(entry, function(err, result) {
       console.log('Entry inserted');
@@ -95,11 +93,15 @@ router.post('/updateSpot', upload.any(), function(request, response, next) {
         entry.$set[key] = request.body[key]
       }
     }
-    if (Object.keys(coordinates)) {
+    if (Object.keys(coordinates).length > 0) {
       entry.$set.coordinates = coordinates
     }
   }
 
+  if (request.files[0]) {
+    entry.$set['imgURL'] = request.files[0].path.substring(7, this.length)
+  }
+  console.log(entry)
   mongo.connect(url, function(err, db) {
     db.collection('buildings').update( {"_id": objectId(id)}, entry )
     db.close();
