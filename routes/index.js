@@ -84,16 +84,27 @@ router.post('/updateSpot', upload.any(), function(request, response, next) {
   var entry = {
     $set: {}
   };
+
+  var coordinates = {};
+
   for (var key in request.body) {
     if (request.body[key] !== "" && key !== '_id') {
-      entry.$set[key] = request.body[key]
+      if(key === 'lat' || key === 'lng') {
+        coordinates[key] = parseFloat(request.body[key])
+      } else {
+        entry.$set[key] = request.body[key]
+      }
+    }
+    if (Object.keys(coordinates)) {
+      entry.$set.coordinates = coordinates
     }
   }
+
   mongo.connect(url, function(err, db) {
-        db.collection('buildings').update( {"_id": objectId(id)}, entry )
-        db.close();
-        response.redirect('/updateSpot')
-      });
+    db.collection('buildings').update( {"_id": objectId(id)}, entry )
+    db.close();
+    response.redirect('/updateSpot')
+  });
 });
 
 
