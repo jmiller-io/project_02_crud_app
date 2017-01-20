@@ -12,6 +12,8 @@ Contributor guidelines
 * Upload an appealing photo
 
 
+API Used
+Google Maps Javascript API
 
 Technologies Used
 * Node.js
