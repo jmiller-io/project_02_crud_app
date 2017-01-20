@@ -1,8 +1,4 @@
 console.log('hi from main');
-$(document).ready(function() {
-    $('select').material_select();
-  });
-
   // My coordinates
   //34.154413, -118.120233
 
