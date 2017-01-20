@@ -4,10 +4,7 @@ This is an application used for plotting and viewing architecturally interesting
 
 
 ## User Stories
-While out and about a neighborhood, users can snap a picture, enter in other relevent information and submit the posting to add it to a map.
-
-Users can also modify existing information or delete it completely from the database.
-
+While out and about a neighborhood, users can snap a picture, enter in other relevent information and submit the posting to add a marker to the map. Users can also modify existing information or delete it from the database.
 
 
 ## Purpose of Application
