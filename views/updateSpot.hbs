@@ -2,12 +2,16 @@
   <h1>{{title}}</h1>
 
   {{#each items}}
-    <div class="posting">
+    <div class="posting hoverable #d7ccc8 brown lighten-4">
       <div class="current_entry_data">
-        <img src="{{this.imgURL}}" class="img">
+        <img src="{{this.imgURL}}" class="postingImg">
         <p><span class="headings">Description: </span> {{this.description}}</p>
         <p><span class="headings">Category: </span> {{this.category}}</p>
         <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
+        <div>
+          <button class="deleteEntry">Remove</button>
+          <p class="entryID" style="visibility: hidden">{{this._id}}</p>
+        </div>
       </div>
 
 
@@ -25,10 +29,6 @@
         <label for="description">Description</label>
         <input type="text" id="description" name="description">
       </div>
-      <!-- <div class="input">
-        <label for="category">Category</label><br>
-        <input type="text" name="category">
-      </div> -->
       <div class="input-field col s12">
         <select id="categories" name="category">
           <option value="" disabled selected>Choose a category</option>
@@ -50,12 +50,8 @@
           <label for="_id">Id</label>
           <input type="text" id="id" name="_id" readonly value="{{this._id}}">
       </div>
-      <button type="submit">Update!</button>
+      <button type="submit">Update</button>
         </form>
-
-
-        <button class="deleteEntry">Delete Entry</button>
-        <p class="entryID" style="visibility: hidden">{{this._id}}</p>
     </div>
   {{/each}}
   <script src="updateSpots.js"></script>

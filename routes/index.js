@@ -68,7 +68,7 @@ router.get('/updateSpot', function(request, response, next) {
   mongo.connect(url, function(err, db) {
     db.collection('buildings').find({}).toArray(function(err, results) {
       db.close();
-      response.render('updateSpot', {title: 'Make changes to Places',
+      response.render('updateSpot', {title: 'Update Info for Places',
                                  items: results
       });
     });
@@ -113,12 +113,9 @@ router.post('/updateSpot', upload.any(), function(request, response, next) {
 // Handle Delete Request
 router.get('/deleteSpot?:id', function(request, response, next) {
   mongo.connect(url, function(err, db) {
-    console.log('finding id  ' +  request.query.id)
     db.collection('buildings').deleteOne({"_id": objectId(request.query.id)}, function(err, result) {
-
-      console.log("Item deleted: " + request.query.id);
       db.close();
-      response.redirect('/updateSpot')
+      response.redirect('/')
     });
   });
 });
