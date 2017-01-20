@@ -3,6 +3,7 @@ var router = express.Router();
 var mongo = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
 var multer = require('multer');
+var AWS = require('aws-sdk');
 
 // DB url
 var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
