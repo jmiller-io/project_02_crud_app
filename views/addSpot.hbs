@@ -3,12 +3,12 @@
     <form action="/addSpot" method="post" enctype="multipart/form-data">
       <div class="input">
         <label for="img">Image</label>
-        <input type="file" name="myimg">
+        <input type="file" name="myimg" required>
       </div>
       <div class="input">
         <label for="location">Location</label>
-        <input type="text" placeholder="Enter Latitude" id="lat" name="lat">
-        <input type="text" placeholder="Enter Longitude" id="lng" name="lng">
+        <input type="text" placeholder="Enter Latitude" id="lat" name="lat" required>
+        <input type="text" placeholder="Enter Longitude" id="lng" name="lng" required>
       </div>
       <div class="input">
         <label for="description">Description</label>
