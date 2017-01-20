@@ -1,4 +1,8 @@
 console.log('linked to updateSpots.js')
+$(document).ready(function() {
+    $('select').material_select();
+  });
+
 
 // Add click event to body for entry updating
 $('body').click(function(evt){
