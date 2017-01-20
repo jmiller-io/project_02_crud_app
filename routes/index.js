@@ -115,7 +115,7 @@ router.get('/deleteSpot?:id', function(request, response, next) {
   mongo.connect(url, function(err, db) {
     db.collection('buildings').deleteOne({"_id": objectId(request.query.id)}, function(err, result) {
       db.close();
-      response.redirect('/')
+      response.redirect('/updateSpot')
     });
   });
 });

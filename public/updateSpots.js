@@ -12,6 +12,7 @@ $('body').click(function(evt){
       url: '/deleteSpot',
       data: {id: entryID}
     });
+    location.reload();
   } else {
     // Do nothing
   }
