@@ -32,7 +32,6 @@ function success(pos) {
   // auto populate coordinate fields for addNewSpot
   $('#lat').val(crd.latitude);
   $('#lng').val(crd.longitude);
-
   console.log('Your current position is:');
   console.log(`Latitude : ${crd.latitude}`);
   console.log(`Longitude: ${crd.longitude}`);
@@ -56,6 +55,17 @@ function initMap() {
     center: {lat: 34.154413, lng: -118.120233},
     zoom: 14
   });
+
+  // HTML5 GeoLocation
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(pos);
+    });
+  };
 
   // Get all the data from the Database
   $.get('/data.json', function( response ) {
