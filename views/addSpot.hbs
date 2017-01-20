@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
 <section class="insert">
-    <form action="/Spot" method="post" enctype="multipart/form-data">
+    <form action="/addSpot" method="post" enctype="multipart/form-data">
       <div class="input">
         <label for="img">Image</label>
         <input type="file" name="myimg">
@@ -14,9 +14,26 @@
         <label for="description">Description</label>
         <input type="text" id="description" name="description">
       </div>
-      <div class="input">
+      <!-- <div class="input">
         <label for="category">Category</label><br>
         <input type="text" name="category">
+      </div> -->
+      <div class="input-field col s12">
+        <select id="categories" name="category">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="Art Deco">Art Deco</option>
+          <option value="Craftsman">Craftsman</option>
+          <option value="Colonial">Colonial</option>
+          <option value="Mid-Century Modern">Mid-Century Modern</option>
+          <option value="Mediterranean">Mediterranean</option>
+          <option value="Modern">Modern</option>
+          <option value="Prairie">Prairie</option>
+          <option value="Ranch">Ranch</option>
+          <option value="Tudor">Tudor</option>
+          <option value="Spanish">Spanish</option>
+          <option value="Victorian">Victorian</option>
+          <option value="Oriental">Oriental</option>
+        </select>
       </div>
       <button type="submit">Add!</button>
     </form>
@@ -24,26 +41,25 @@
 <script src="/main.js"></script>
 <script>
 
-// User location use this as reference for finding location
+  // User location use this as reference for finding location
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
 
-var options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-};
+  function success(pos) {
+    var coords = pos.coords;
 
-function success(pos) {
-  var coords = pos.coords;
+    // auto populate coordinate fields for addSpot
+    $('#lat').val(coords.latitude);
+    $('#lng').val(coords.longitude);
+  };
 
-  // auto populate coordinate fields for addSpot
-  $('#lat').val(coords.latitude);
-  $('#lng').val(coords.longitude);
-};
+  function error(err) {
+    console.warn('Error(${err.code}): ${err.message}');
+  };
 
-function error(err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-};
-
-navigator.geolocation.getCurrentPosition(success, error, options);
+  navigator.geolocation.getCurrentPosition(success, error, options);
 
 </script>

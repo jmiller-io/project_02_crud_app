@@ -25,11 +25,12 @@
   display: inline-block;
   float: right;
   border: 3px solid blue;
+  height: 500px;
 }
 
 .posting {
   border: 1px solid black;
-  height: 425px;
+  height: 500px;
   width: 100%;
   margin-bottom: 6%;
 }
