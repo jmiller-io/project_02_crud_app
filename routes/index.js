@@ -3,14 +3,25 @@ var router = express.Router();
 var mongo = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
 var multer = require('multer');
-var aws = require('aws-sdk');
+var AWS = require('aws-sdk');
 var knox = require('knox');
 
-var client = knox.createClient({
-    key: process.env.AWS_ACCESS_KEY_ID,
-    secret: process.env.AWS_SECRET_ACCESS_KEY,
-    bucket: process.env.S3_BUCKET
-});
+const s3 = new AWS.S3();
+AWS.config.update(
+  {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  }
+);
+
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+})
+
+
+
+
 
 // DB url
 var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
@@ -53,23 +64,28 @@ router.get('/addSpot', function(request, response, next) {
 
 
 // handle post request on addSpot
-router.post('/addSpot', multer({ dest: './public/s3_uploads/'}).any(), function(request, response, next) {
-  client.putFile(request.files[0].path, 'test.jpg', function(err, response){
-    if (err) console.log(err)
-    response.status(200).send({url: response.req.url})
-  });
-  var entry = {
-    imgURL: request.files[0].path.substring(7, this.length),
-    description: request.body.description,
-    category: request.body.category,
-    coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
-  };
-  mongo.connect(url, function(err, db) {
-    db.collection('buildings').insertOne(entry, function(err, result) {
-      console.log('Entry inserted');
-      db.close();
-      response.redirect('/');
-    });
+router.post('/addSpot', upload.any(), function(request, response, next) {
+  var file = generateRandomFileName(request.files[0]);
+  s3.putObject({
+      Bucket: process.env.S3_BUCKET,
+      Key: file,
+      Body: request.files[0].buffer,
+      ACL: 'public-read'
+    }, function(err) {
+      if(err) return response.status(400).send(err);
+        var entry = {
+          imgURL: 'https://archplotterdata.s3.amazonaws.com/' + file,
+          description: request.body.description,
+          category: request.body.category,
+          coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
+        };
+        mongo.connect(url, function(err, db) {
+          db.collection('buildings').insertOne(entry, function(err, result) {
+            console.log('Entry inserted');
+            db.close();
+            response.redirect('/');
+          });
+        });
   });
 });
 
