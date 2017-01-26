@@ -3,7 +3,14 @@ var router = express.Router();
 var mongo = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
 var multer = require('multer');
-var AWS = require('aws-sdk');
+var aws = require('aws-sdk');
+var knox = require('knox');
+
+var client = knox.createClient({
+    key: process.env.AWS_ACCESS_KEY_ID,
+    secret: process.env.AWS_SECRET_ACCESS_KEY,
+    bucket: process.env.S3_BUCKET
+});
 
 // DB url
 var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
@@ -24,15 +31,15 @@ var generateRandomFileName = function(f) {
 
 
 // storage and file specifications for multer
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/img_uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, generateRandomFileName(file) )
-  }
-});
-var upload = multer({storage: storage});
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'public/img_uploads')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, generateRandomFileName(file) )
+//   }
+// });
+// var upload = multer({storage: storage});
 
 
 
@@ -46,7 +53,11 @@ router.get('/addSpot', function(request, response, next) {
 
 
 // handle post request on addSpot
-router.post('/addSpot', upload.any(), function(request, response, next) {
+router.post('/addSpot', multer({ dest: './public/s3_uploads/'}).any(), function(request, response, next) {
+  client.putFile(request.files[0].path, 'test.jpg', function(err, response){
+    if (err) console.log(err)
+    response.status(200).send({url: response.req.url})
+  });
   var entry = {
     imgURL: request.files[0].path.substring(7, this.length),
     description: request.body.description,
@@ -78,7 +89,7 @@ router.get('/updateSpot', function(request, response, next) {
 
 
 // Handle UpdateSpot POST Request
-router.post('/updateSpot', upload.any(), function(request, response, next) {
+router.post('/updateSpot', function(request, response, next) {
   var id = request.body._id;
   var entry = {
     $set: {}
