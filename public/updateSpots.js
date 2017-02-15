@@ -17,3 +17,8 @@ $('body').click(function(evt){
     // Do nothing
   }
 });
+
+window.onload = function() {
+  console.log('Window is loaded')
+  var $allPostings = $('.posting')
+}

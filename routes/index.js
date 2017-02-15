@@ -4,7 +4,6 @@ var mongo = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
 var multer = require('multer');
 var AWS = require('aws-sdk');
-var knox = require('knox');
 
 const s3 = new AWS.S3();
 AWS.config.update(
@@ -17,7 +16,7 @@ AWS.config.update(
 
 const upload = multer({
   storage: multer.memoryStorage(),
-})
+});
 
 
 
@@ -105,11 +104,44 @@ router.get('/updateSpot', function(request, response, next) {
 
 
 // Handle UpdateSpot POST Request
-router.post('/updateSpot', function(request, response, next) {
+router.post('/updateSpot', upload.any(), function(request, response, next) {
   var id = request.body._id;
   var entry = {
     $set: {}
   };
+
+  if (request.files[0]) {
+    var file = generateRandomFileName(request.files[0]);
+    s3.putObject({
+      Bucket: process.env.S3_BUCKET,
+      Key: file,
+      Body: request.files[0].buffer,
+      ACL: 'public-read'
+    }, function(err) {
+        if(err) {
+          return response.status(400).send(err)
+        } else {
+            entry.$set['imgURL'] = 'https://archplotterdata.s3.amazonaws.com/' + file
+            console.log(entry)
+        }
+    })
+
+    // delete old image on S3
+    // s3.deleteObject({
+    //   Bucket: process.env.S3_BUCKET,
+    //   Key: 'OldImgURL'
+    // }, function(err) {
+    //   if(err) {
+    //     console.log(err)
+    //   } else {
+    //     console.log('deleted img on Amazon')
+    //   }
+    // })
+
+
+  }
+
+
 
   var coordinates = {};
 
@@ -125,16 +157,14 @@ router.post('/updateSpot', function(request, response, next) {
       entry.$set.coordinates = coordinates
     }
   }
-
-  if (request.files[0]) {
-    entry.$set['imgURL'] = request.files[0].path.substring(7, this.length)
-  }
   console.log(entry)
   mongo.connect(url, function(err, db) {
     db.collection('buildings').update( {"_id": objectId(id)}, entry )
     db.close();
     response.redirect('/updateSpot')
   });
+
+
 });
 
 
