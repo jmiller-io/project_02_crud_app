@@ -121,8 +121,13 @@ router.post('/updateSpot', upload.any(), function(request, response, next) {
         if(err) {
           return response.status(400).send(err)
         } else {
-            entry.$set['imgURL'] = 'https://archplotterdata.s3.amazonaws.com/' + file
-            console.log(entry)
+          entry.$set['imgURL'] = 'https://archplotterdata.s3.amazonaws.com/' + file
+          console.log(entry)
+          mongo.connect(url, function(err, db) {
+            db.collection('buildings').update( {"_id": objectId(id)}, entry )
+            db.close();
+            response.redirect('/updateSpot')
+          });
         }
     })
 
@@ -139,32 +144,29 @@ router.post('/updateSpot', upload.any(), function(request, response, next) {
     // })
 
 
-  }
-
-
-
-  var coordinates = {};
-
-  for (var key in request.body) {
-    if (request.body[key] !== "" && key !== '_id') {
-      if(key === 'lat' || key === 'lng') {
-        coordinates[key] = parseFloat(request.body[key])
-      } else {
+  } else {
+    for (var key in request.body) {
+      if(request.body[key] !== "" && key !== '_id') {
         entry.$set[key] = request.body[key]
       }
     }
-    if (Object.keys(coordinates).length > 0) {
-      entry.$set.coordinates = coordinates
-    }
+    console.log(entry)
+    mongo.connect(url, function(err, db) {
+      db.collection('buildings').update( {"_id": objectId(id)}, entry )
+      db.close();
+      response.redirect('/updateSpot')
+    });
   }
-  console.log(entry)
-  mongo.connect(url, function(err, db) {
-    db.collection('buildings').update( {"_id": objectId(id)}, entry )
-    db.close();
-    response.redirect('/updateSpot')
-  });
 
-
+  // for (var key in request.body) {
+  //   if (request.body[key] !== "" && key !== '_id') {
+  //     entry.$set[key] = request.body[key]
+  //   }
+  //   if (Object.keys(coordinates).length > 0) {
+  //     entry.$set.coordinates = coordinates
+  //   }
+  // }
+  // console.log(entry)
 });
 
 
