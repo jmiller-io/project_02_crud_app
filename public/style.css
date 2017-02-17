@@ -1,6 +1,5 @@
 #map {
-  width: 75%;
-  height: 600px;
+  height: 100%;
   background-color: grey;
 }
 
@@ -25,6 +24,7 @@
 }
 
 .posting {
+  position: relative;
   height: 450px;
   width: 90%;
   margin-bottom: 6%;
@@ -36,8 +36,9 @@ img {
   max-height: 400px;
 }
 
-body {
+body, html {
   background-color: #bcaaa4;
+  height:100%;
 }
 
 p {
