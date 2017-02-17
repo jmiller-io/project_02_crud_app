@@ -8,6 +8,7 @@
   display: inline-block;
   float: left;
   width: 50%;
+  white-space: normal;
 }
 
 .headings {
@@ -16,15 +17,18 @@
 }
 
 #updateForm {
+  position: absolute;
   display: inline-block;
   float: right;
-  height: 500px;
+  height: 400px;
+  white-space: normal;
 }
 
 .posting {
-  height: 550px;
+  height: 450px;
   width: 90%;
   margin-bottom: 6%;
+  white-space: nowrap;
 }
 
 img {
