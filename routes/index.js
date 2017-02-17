@@ -19,9 +19,6 @@ const upload = multer({
 });
 
 
-
-
-
 // DB url
 var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
 
@@ -111,6 +108,7 @@ router.post('/updateSpot', upload.any(), function(request, response, next) {
   };
 
   if (request.files[0]) {
+    var oldImg_fname = request.body._img.split('/').pop();
     var file = generateRandomFileName(request.files[0]);
     s3.putObject({
       Bucket: process.env.S3_BUCKET,

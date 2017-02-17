@@ -14,7 +14,7 @@
         <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
         <div>
           <button class="deleteEntry">Remove</button>
-          <p class="entryID" style="visibility: hidden">{{this._id}}</p>
+          <p class="entryID" style="display: none">{{this._id}}</p>
         </div>
       </div>
       <form id="updateForm" action="/updateSpot" method="post" enctype="multipart/form-data">
@@ -49,9 +49,10 @@
             <option value="Oriental">Oriental</option>
           </select>
         </div>
-        <div class="input">
+        <div class="input" style="display: none">
           <label for="_id">Id</label>
           <input type="text" id="id" name="_id" readonly value="{{this._id}}">
+          <input type="text" name="_img" readonly value={{this.imgURL}}>
         </div>
         <button type="submit">Update</button>
         </form>

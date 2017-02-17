@@ -1,4 +1,3 @@
-console.log('linked to updateSpots.js')
 $(document).ready(function() {
     $('select').material_select();
   });
@@ -13,12 +12,11 @@ $('body').click(function(evt){
       data: {id: entryID}
     });
     location.reload();
-  } else {
-    // Do nothing
+  }
+
+  if (evt.target.id === 'test_btn') {
+      $btn = $(evt.target)
+      $oldImg_fname = $($btn.parent().children()[0]).children().first().attr('src').split('/').pop()
+      console.log($oldImg_fname)
   }
 });
-
-window.onload = function() {
-  console.log('Window is loaded')
-  var $allPostings = $('.posting')
-}
