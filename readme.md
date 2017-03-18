@@ -18,7 +18,7 @@ Google Maps Javascript API
 * Node.js
 * MongoDB
 * JavaScript
-* jQuery
+* jQuery/AJAX
 * HTML/CSS
 
 ### Frameworks Used
