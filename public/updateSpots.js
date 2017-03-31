@@ -16,8 +16,8 @@ $('body').click(function(evt){
   }
 
   if (evt.target.id === 'test_btn') {
-      $btn = $(evt.target)
-      $oldImg_fname = $($btn.parent().children()[0]).children().first().attr('src').split('/').pop()
+      let $btn = $(evt.target)
+      let $oldImg_fname = $($btn.parent().children()[0]).children().first().attr('src').split('/').pop()
       console.log($oldImg_fname)
   }
 });
