@@ -51,7 +51,7 @@ function initMap() {
 
       // Create info window with object database info
       var infowindow = new google.maps.InfoWindow({
-        content: '<div><img class="infowindow_img" src="' + obj.imgURL + '"><br /> <p> Description: ' + obj.description + '</p><p>Category: <i>' + obj.category + '</i></p></div>' // in the windo
+        content: '<div><img class="mapImg" src="' + obj.imgURL + '"><br /> <p> Description: ' + obj.description + '</p><p>Category: <i>' + obj.category + '</i></p></div>' // in the windo
       });
 
       // info window event listener
