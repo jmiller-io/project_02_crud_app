@@ -3,33 +3,9 @@
   background-color: grey;
 }
 
-.current_entry_data {
-  display: inline-block;
-  float: left;
-  width: 50%;
-  white-space: normal;
-}
-
 .headings {
   font-weight: bold;
   line-height: 0;
-}
-
-/*#updateForm {
-  position: absolute;
-  display: inline-block;
-  float: right;
-  height: 400px;
-  white-space: normal;
-  display: none;
-}*/
-
-.posting {
-  position: relative;
-  height: 450px;
-  width: 90%;
-  margin-bottom: 6%;
-  white-space: nowrap;
 }
 
 .mapImg {
@@ -40,10 +16,6 @@
 body, html {
   background-color: #fcfcfc;
   height: 100%;
-}
-
-p {
-  margin: 0;
 }
 
 h1 {
