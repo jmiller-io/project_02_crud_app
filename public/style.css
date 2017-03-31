@@ -37,10 +37,14 @@ img {
 }
 
 body, html {
-  background-color: #bcaaa4;
+  background-color: #fcfcfc;
   height: 100%;
 }
 
 p {
   margin: 0;
+}
+
+h1 {
+  color: #ee6e73;
 }
