@@ -5,6 +5,7 @@ const mongo = require('mongodb').MongoClient;
 const objectId = require('mongodb').ObjectID;
 const multer = require('multer');
 const AWS = require('aws-sdk');
+const User = require('../models/user.js');
 
 const s3 = new AWS.S3();
 AWS.config.update(
@@ -177,12 +178,17 @@ router.get('/deleteSpot?:id', function(request, response, next) {
 
 // route presenting json data
 router.get('/data.json', function (request, response) {
-  mongo.connect(url, function(err, db) {
-    db.collection('buildings').find({}).toArray(function(err, results) {
-      db.close();
-      response.json(results);
-    });
-  });
+  User.find({}, (err, results) => {
+    let spots = [];
+    results.forEach((u) => {
+      if (u.locations.length > 0) {
+        u.locations.forEach((spot) => {
+          spots.push(spot)
+        })
+      }
+    })
+    response.json(spots);
+  })
 });
 
 module.exports = router;

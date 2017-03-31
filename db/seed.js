@@ -21,3 +21,21 @@ var s = new Structure.Model({
 })
 
 u.locations.push(s)
+
+var u2 = new User({
+  name: 'MtnSighed',
+  avatar: 'my_avatar'
+});
+
+u2.save();
+
+var t = new Structure.Model({
+  "imgURL": "https://archplotterdata.s3.amazonaws.com/utrxijbxnanerbfzczwlfovciamdaxea.jpeg",
+  "description": "The Mountain House",
+  "category": "Craftsman",
+  "coordinates": {
+    "lat": 34.0480205,
+    "lng": -118.23996980000001
+  }
+})
+u2.locations.push(t)
