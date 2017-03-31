@@ -1,36 +1,38 @@
-// load modules
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var hbs = require('express-handlebars');
-var favicon = require('serve-favicon');
+require('dotenv').config();
+const express = require('express');
+const favicon = require('serve-favicon');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const hbs = require('express-handlebars');
+const morgan = require('morgan');
+const path = require('path');
+const app = express();
 
-var app = express();
-
-//require routes
-var routes = require('./routes/index');
-
-// view engine set-up
-app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'main', layoutsDir: __dirname + '/views/layouts/'}));
-// server .hbs templates from views with res.render
-app.set('views', path.join(__dirname, 'views'));
-// Use Handlebars syntax {{ }}
+// CONFIG
+require('./db/config');
+app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}));
+app.engine('hbs', hbs({
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: path.join(__dirname, 'views/layouts/')
+}));
 app.set('view engine', 'hbs');
 
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon( __dirname + '/public/favicon.ico'));
+// ROUTES
+app.use('/', require('./routes/index'));
 
-// apply the routes to our app
-app.use('/', routes);
-
-
-// add a listener
-var port = process.env.PORT || 3000;
-app.listen(port, function() {
-  console.log('Listening on port 3000!')
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Listening on ${port}`);
 });

@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var mongo = require('mongodb').MongoClient;
-var objectId = require('mongodb').ObjectID;
-var multer = require('multer');
-var AWS = require('aws-sdk');
+const express = require('express');
+const router = express.Router();
+const handlebars = require('handlebars');
+const mongo = require('mongodb').MongoClient;
+const objectId = require('mongodb').ObjectID;
+const multer = require('multer');
+const AWS = require('aws-sdk');
 
 const s3 = new AWS.S3();
 AWS.config.update(
@@ -17,10 +18,6 @@ AWS.config.update(
 const upload = multer({
   storage: multer.memoryStorage(),
 });
-
-
-// DB url
-var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
 
 // generates random file name and adds an extension
 var generateRandomFileName = function(f) {
