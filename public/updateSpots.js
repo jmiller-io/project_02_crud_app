@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    $('select').material_select();
-  });
+  $('.button-collapse').sideNav();
+  $('select').material_select();
+});
 
 
 // Add click event to body for entry updating

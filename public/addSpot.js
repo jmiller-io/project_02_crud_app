@@ -1,5 +1,6 @@
 // Materialize select drop down functionality
 $(document).ready(function() {
+  $('.button-collapse').sideNav();
   $('select').material_select();
 });
 
