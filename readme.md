@@ -1,4 +1,4 @@
-# User-Driven Neighborhood Architecture Plotter
+# Architectural.ly
 
 This is an application used for plotting and viewing architecturally interesting buildings in a neighborhood. This can be used to curate self-guided neighborhood architecture tours. Users can view POI's, add new POI's and modify existing ones. User's upload an image, enter their location if not automatically found, add a note and categorize the building.
 
@@ -18,7 +18,7 @@ Google Maps Javascript API
 * Node.js
 * MongoDB
 * JavaScript
-* jQuery
+* jQuery/AJAX
 * HTML/CSS
 
 ### Frameworks Used
