@@ -19,7 +19,10 @@ Google Maps Javascript API
 * MongoDB
 * JavaScript
 * jQuery/AJAX
-* HTML/CSS
+* HTML5/CSS
+* AWS S3
+* Heroku
+* Handlebars
 
 ### Frameworks Used
 * Materialize CSS
