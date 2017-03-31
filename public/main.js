@@ -61,3 +61,7 @@ function initMap() {
     });
   });
 };
+
+$(document).ready( function() {
+  $('.button-collapse').sideNav();
+})
