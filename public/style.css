@@ -21,3 +21,13 @@ body, html {
 h1 {
   color: #ee6e73;
 }
+
+.edt_btn {
+  margin-top: -.825em;
+  margin-right: .25em;
+  float: right;
+}
+
+.card-content {
+  text-align: left;
+}
