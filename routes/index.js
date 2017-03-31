@@ -55,7 +55,7 @@ var generateRandomFileName = function(f) {
 // Router for adding a new spot
 router.get('/addSpot', function(request, response, next) {
   // render the addSpot.hbs template and replace {{title}} with 'Add a New Spot'
-  response.render('addSpot', {title: 'Add Spot'});
+  response.render('addSpot', {title: 'Add Spot - Architectural.ly'});
 });
 
 
@@ -92,7 +92,7 @@ router.get('/updateSpot', function(request, response, next) {
   mongo.connect(url, function(err, db) {
     db.collection('buildings').find({}).toArray(function(err, results) {
       db.close();
-      response.render('updateSpot', {title: 'Edit Spot',
+      response.render('updateSpot', {title: 'Edit Spot - Architectural.ly',
                                  items: results
       });
     });
