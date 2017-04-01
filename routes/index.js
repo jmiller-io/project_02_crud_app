@@ -112,72 +112,106 @@ router.get('/updateSpot', function(request, response, next) {
 });
 
 
-// Handle UpdateSpot POST Request
-router.post('/updateSpot', upload.any(), function(request, response, next) {
-  var id = request.body._id;
-  var entry = {
-    $set: {}
-  };
-
-  if (request.files[0]) {
-    var oldImg_fname = request.body._img.split('/').pop();
-    var file = generateRandomFileName(request.files[0]);
-    s3.putObject({
-      Bucket: process.env.S3_BUCKET,
-      Key: file,
-      Body: request.files[0].buffer,
-      ACL: 'public-read'
-    }, function(err) {
-        if(err) {
-          return response.status(400).send(err)
-        } else {
-          entry.$set['imgURL'] = 'https://archplotterdata.s3.amazonaws.com/' + file
-          console.log(entry)
-          mongo.connect(url, function(err, db) {
-            db.collection('buildings').update( {"_id": objectId(id)}, entry )
-            db.close();
-            response.redirect('/updateSpot')
-          });
+// Update Spot
+router.post('/spot/:id', upload.any(), function(req, res, next) {
+    var entry = {};
+    for (var key in req.body) {
+        if (req.body[key] !== "") {
+            entry[key] = req.body[key];
         }
-    })
-
-    // delete old image on S3
-    // s3.deleteObject({
-    //   Bucket: process.env.S3_BUCKET,
-    //   Key: 'OldImgURL'
-    // }, function(err) {
-    //   if(err) {
-    //     console.log(err)
-    //   } else {
-    //     console.log('deleted img on Amazon')
-    //   }
-    // })
-
-
-  } else {
-    for (var key in request.body) {
-      if(request.body[key] !== "" && key !== '_id') {
-        entry.$set[key] = request.body[key]
-      }
     }
-    console.log(entry)
-    mongo.connect(url, function(err, db) {
-      db.collection('buildings').update( {"_id": objectId(id)}, entry )
-      db.close();
-      response.redirect('/updateSpot')
-    });
-  }
 
-  // for (var key in request.body) {
-  //   if (request.body[key] !== "" && key !== '_id') {
-  //     entry.$set[key] = request.body[key]
-  //   }
-  //   if (Object.keys(coordinates).length > 0) {
-  //     entry.$set.coordinates = coordinates
-  //   }
-  // }
-  // console.log(entry)
+    if (req.files[0]) {
+        var file = generateRandomFileName(req.files[0]);
+        entry['imgURL'] = 'https://archplotterdata.s3.amazonaws.com/' + file;
+        s3.putObject({
+            Bucket: process.env.S3_BUCKET,
+            Key: file,
+            Body: req.files[0].buffer,
+            ACL: 'public-read'
+        }, function(err) {
+            if (err) {
+                return res.status(400).send(err);
+            }
+        });
+    }
+
+    // Updates Spot document
+    Structure.Model.update({
+        _id: req.params.id
+    }, entry, function(err, results) {
+        if (!err) {res.redirect('/profile')}
+    });
 });
+
+
+
+// Handle UpdateSpot POST Request
+// router.post('/updateSpot', upload.any(), function(request, response, next) {
+//   var id = request.body._id;
+//   var entry = {
+//     $set: {}
+//   };
+
+//   if (request.files[0]) {
+//     var oldImg_fname = request.body._img.split('/').pop();
+//     var file = generateRandomFileName(request.files[0]);
+//     s3.putObject({
+//       Bucket: process.env.S3_BUCKET,
+//       Key: file,
+//       Body: request.files[0].buffer,
+//       ACL: 'public-read'
+//     }, function(err) {
+//         if(err) {
+//           return response.status(400).send(err)
+//         } else {
+//           entry.$set['imgURL'] = 'https://archplotterdata.s3.amazonaws.com/' + file
+//           console.log(entry)
+//           mongo.connect(url, function(err, db) {
+//             db.collection('buildings').update( {"_id": objectId(id)}, entry )
+//             db.close();
+//             response.redirect('/updateSpot')
+//           });
+//         }
+//     })
+
+//     // delete old image on S3
+//     // s3.deleteObject({
+//     //   Bucket: process.env.S3_BUCKET,
+//     //   Key: 'OldImgURL'
+//     // }, function(err) {
+//     //   if(err) {
+//     //     console.log(err)
+//     //   } else {
+//     //     console.log('deleted img on Amazon')
+//     //   }
+//     // })
+
+
+//   } else {
+//     for (var key in request.body) {
+//       if(request.body[key] !== "" && key !== '_id') {
+//         entry.$set[key] = request.body[key]
+//       }
+//     }
+//     console.log(entry)
+//     mongo.connect(url, function(err, db) {
+//       db.collection('buildings').update( {"_id": objectId(id)}, entry )
+//       db.close();
+//       response.redirect('/updateSpot')
+//     });
+//   }
+
+//   // for (var key in request.body) {
+//   //   if (request.body[key] !== "" && key !== '_id') {
+//   //     entry.$set[key] = request.body[key]
+//   //   }
+//   //   if (Object.keys(coordinates).length > 0) {
+//   //     entry.$set.coordinates = coordinates
+//   //   }
+//   // }
+//   // console.log(entry)
+// });
 
 
 // Handle Delete Request
