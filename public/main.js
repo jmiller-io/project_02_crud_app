@@ -39,6 +39,7 @@ function initMap() {
   // Get all the data from the Database
   $.get('/data.json', function( response ) {
     markerData = response;
+    console.log('markerData', markerData)
     // iterate through objects creates map marker
     markerData.forEach(function(obj) {
       var marker = new google.maps.Marker({

@@ -4,6 +4,7 @@ var StructureSchema = new mongoose.Schema({
   description: String,
   category: String,
   imgURL: String,
+  postedBy: String,
   coordinates: {
     lat: Number,
     lng: Number

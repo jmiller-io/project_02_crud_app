@@ -6,6 +6,7 @@ const objectId = require('mongodb').ObjectID;
 const multer = require('multer');
 const AWS = require('aws-sdk');
 const User = require('../models/user.js');
+const Structure = require('../models/structure.js');
 
 const s3 = new AWS.S3();
 AWS.config.update(
@@ -87,14 +88,17 @@ router.post('/addSpot', upload.any(), function(request, response, next) {
 // handle updateSpot get request
 router.get('/updateSpot', function(request, response, next) {
   //console.log(request.query.id);
-  mongo.connect(url, function(err, db) {
-    db.collection('buildings').find({}).toArray(function(err, results) {
-      db.close();
-      response.render('updateSpot', {title: 'Edit Spot - Architectural.ly',
-                                 items: results
-      });
-    });
-  });
+  // mongo.connect(url, function(err, db) {
+  //   db.collection('buildings').find({}).toArray(function(err, results) {
+  //     db.close();
+  //     response.render('updateSpot', {title: 'Edit Spot - Architectural.ly',
+  //                                items: results
+  //     });
+  //   });
+  // });
+  Structure.Model.find({}, (err, results) => {
+    response.render('updateSpot', {title: 'Edit Spot - Architectural.ly', items: results});
+  })
 });
 
 
@@ -178,16 +182,8 @@ router.get('/deleteSpot?:id', function(request, response, next) {
 
 // route presenting json data
 router.get('/data.json', function (request, response) {
-  User.find({}, (err, results) => {
-    let spots = [];
-    results.forEach((u) => {
-      if (u.locations.length > 0) {
-        u.locations.forEach((spot) => {
-          spots.push(spot)
-        })
-      }
-    })
-    response.json(spots);
+  Structure.Model.find({}, (err, results) => {
+    response.send(results)
   })
 });
 

@@ -4,7 +4,7 @@ var StructureSchema = require('./structure.js');
 var UserSchema = new mongoose.Schema({
   name: String,
   avatar: String,
-  locations: [StructureSchema.Schema]
+  locations: [{type: mongoose.Schema.Types.ObjectId, ref: 'Structure'}]
 })
 
 var User = mongoose.model('User', UserSchema);

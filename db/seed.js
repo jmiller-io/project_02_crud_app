@@ -3,12 +3,12 @@ require('./config');
 const User = require('../models/user.js');
 const Structure = require('../models/structure.js');
 
-var u = new User({
-  name: 'HillSighed',
-  avatar: 'my_avatar'
-});
+// var u = new User({
+//   name: 'HillSighed',
+//   avatar: 'my_avatar'
+// });
 
-u.save();
+// u.save();
 
 var s = new Structure.Model({
   "imgURL": "https://archplotterdata.s3.amazonaws.com/utrxijbxnanerbfzczwlfovciamdaxea.jpeg",
@@ -20,7 +20,7 @@ var s = new Structure.Model({
   }
 })
 
-u.locations.push(s)
+s.save();
 
 var u2 = new User({
   name: 'MtnSighed',
@@ -34,8 +34,10 @@ var t = new Structure.Model({
   "description": "The Mountain House",
   "category": "Craftsman",
   "coordinates": {
-    "lat": 34.0480205,
+    "lat": 34.048021,
     "lng": -118.23996980000001
   }
 })
-u2.locations.push(t)
+
+t.save();
+// u2.locations.push(t)
