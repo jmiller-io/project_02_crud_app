@@ -86,11 +86,11 @@ router.post('/addSpot', upload.any(), function(request, response, next) {
         s.save();
         // Add building to User
         User.findOneAndUpdate({
-          _id: request.session.user.id
+          _id: request.body.user_id
         }, {$push: {locations: s}}, (err, results) => {
           if (err) response.send(err)
           console.log('entry added')
-          response.redirect('/')
+          response.redirect('/profile')
         })
 
         // mongo.connect(url, function(err, db) {
