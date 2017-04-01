@@ -54,7 +54,7 @@ var generateRandomFileName = function(f) {
 // Router for adding a new spot
 router.get('/addSpot', function(request, response, next) {
   // render the addSpot.hbs template and replace {{title}} with 'Add a New Spot'
-  response.render('addSpot', {title: 'Add Spot - Architectural.ly'});
+  response.render('addSpot', {title: 'Add Spot - Architectural.ly', user: request.session.user});
 });
 
 
