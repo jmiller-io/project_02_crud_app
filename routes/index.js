@@ -54,7 +54,7 @@ var generateRandomFileName = function(f) {
 // Router for adding a new spot
 router.get('/addSpot', function(request, response, next) {
   // render the addSpot.hbs template and replace {{title}} with 'Add a New Spot'
-  response.render('addSpot', {title: 'Add Spot - Architectural.ly', user: request.session.user});
+  response.render('addSpot', {title: 'Add Spot - Architectural.ly'});
 });
 
 
@@ -86,9 +86,9 @@ router.post('/addSpot', upload.any(), function(request, response, next) {
         s.save();
         // Add building to User
         User.findOneAndUpdate({
-          name: req.session.user.name.givenName
+          _id: request.session.user.id
         }, {$push: {locations: s}}, (err, results) => {
-          if (err) res.send(err)
+          if (err) response.send(err)
           console.log('entry added')
           response.redirect('/')
         })

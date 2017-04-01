@@ -1,5 +1,4 @@
 <h1>Add Spot</h1>
-<h1>{{user.resourceName}}</h1>
     <form action="/addSpot" method="post" enctype="multipart/form-data">
       <div class="input">
         <label for="img">Image</label>
@@ -31,6 +30,9 @@
           <option value="Victorian">Victorian</option>
           <option value="Oriental">Oriental</option>
         </select>
+      </div>
+      <div class="input" style="display: none">
+        <input type="text" id="id" name="user_id" readonly value="{{user.id}}">
       </div>
       <button class="btn-floating waves-effect waves-light red" type="submit" name="action">
         <i class="material-icons right">add</i>
