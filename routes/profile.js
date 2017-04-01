@@ -22,28 +22,24 @@ router.get('/me', (req, res, next) => {
             'Authorization': `Bearer ${access_token}`
         }
     };
-    request(options, (err, response, body) => {
-        const userData = JSON.parse(body);
-        req.session.user = userData;
-        // Database work
-        user.findById({
-            _id: req.session.user.id
-        }, function(err, results) {
-            if (err) {
-                console.log(err);
-            }
-
-            if (!results) {
-                console.log('no existing user in db');
-                var u = new user({
-                    _id: req.session.user.id,
-                    name: req.session.user.name.givenName,
-                    avatar: req.session.user.image.url
-                });
-                u.save();
+  request(options, (err, response, body) => {
+    const userData = JSON.parse(body);
+    req.session.user = userData;
+    // Database work
+    user.findById({
+        _id: req.session.user.id
+    }, function(err, results) {
+        if (err) console.log(err)
+        if (!results) {
+          console.log('no existing user in db');
+            var u = new user({
+              name: req.session.user.name.givenName,
+              avatar: req.session.user.image.url
+            });
+            u.save();
             } else if (results) {
-                console.log('user exists in db');
-                req.session.user.basket = results.basket;
+              console.log('user exists in db');
+              req.session.user.locations = results.locations;
             }
             return res.redirect('/');
         });
