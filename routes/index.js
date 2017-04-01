@@ -67,35 +67,45 @@ router.post('/addSpot', upload.any(), function(request, response, next) {
       Body: request.files[0].buffer,
       ACL: 'public-read'
     }, function(err) {
-      if(err) return response.status(400).send(err);
-        var entry = {
-          imgURL: 'https://archplotterdata.s3.amazonaws.com/' + file,
-          description: request.body.description,
-          category: request.body.category,
-          coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
-        };
-        mongo.connect(url, function(err, db) {
-          db.collection('buildings').insertOne(entry, function(err, result) {
-            console.log('Entry inserted');
-            db.close();
-            response.redirect('/');
-          });
-        });
+      if (err) return response.status(400).send(err);
+        // var entry = {
+        //   imgURL: 'https://archplotterdata.s3.amazonaws.com/' + file,
+        //   description: request.body.description,
+        //   category: request.body.category,
+        //   coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
+        // };
+        let s = new Structure.Model({
+          "imgURL": 'https://archplotterdata.s3.amazonaws.com/' + file,
+          "description": request.body.description,
+          "category": request.body.category,
+          "coordinates": {
+            "lat": parseFloat(request.body.lat),
+            "lng": parseFloat(request.body.lng)
+          }
+        })
+        s.save();
+        // Add building to User
+        User.findOneAndUpdate({
+          name: req.session.user.name.givenName
+        }, {$push: {locations: s}}, (err, results) => {
+          if (err) res.send(err)
+          console.log('entry added')
+          response.redirect('/')
+        })
+
+        // mongo.connect(url, function(err, db) {
+        //   db.collection('buildings').insertOne(entry, function(err, result) {
+        //     console.log('Entry inserted');
+        //     db.close();
+        //     response.redirect('/');
+        //   });
+        // });
   });
 });
 
 
 // handle updateSpot get request
 router.get('/updateSpot', function(request, response, next) {
-  //console.log(request.query.id);
-  // mongo.connect(url, function(err, db) {
-  //   db.collection('buildings').find({}).toArray(function(err, results) {
-  //     db.close();
-  //     response.render('updateSpot', {title: 'Edit Spot - Architectural.ly',
-  //                                items: results
-  //     });
-  //   });
-  // });
   Structure.Model.find({}, (err, results) => {
     response.render('updateSpot', {title: 'Edit Spot - Architectural.ly', items: results});
   })
