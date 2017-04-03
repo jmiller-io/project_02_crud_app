@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-    <link rel="stylesheet" href="/style.css">
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ title }}</title>
-</head>
-<header>
+    <title>Explore - Architectural.ly</title>
+  </head>
+  <header>
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
@@ -29,10 +28,14 @@
       <li><a href="/addSpot">Add a Spot</a></li>
       <li><a href="/updateSpot">Update Spots</a></li>
     </ul>
-</header>
-<body class="center-align">
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
-    {{{ body }}}
-</body>
+  </header>
+  <body class="center-align">
+    <!-- <a href="/updateSpot" class="waves-effect waves-light btn">Update Spots</a>
+    <a href="/addSpot" class="waves-effect waves-light btn">Add a Spot</a> -->
+    <div id="map"></div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCawYohs-Q1mDjKO0-WwFZnKREoBnmEKX4&callback=initMap"></script>
+    <script src="main.js"></script>
+  </body>
 </html>
