@@ -1,5 +1,5 @@
 <div class="billboard">
-  <div class = "card transparent z-depth-5 billboard_overlay">
+  <div class="card transparent z-depth-5 billboard_overlay">
     <p>Discover the Architecture around you.</p>
     <a href="/explore" class="waves-effect waves-teal btn-flat" style="background-color: #ee6e73; color: #FFF">Explore</a>
   </div>
@@ -11,12 +11,28 @@
   <div class="discoveryContainer">
     <h3>Recently Discovered</h3>
       {{#each spots}}
+
+       <div class="row">
+        <div class="col s12 m7">
+          <div class="card small">
+            <div class="card-image">
+              <img src="{{this.imgURL}}">
+              <span class="card-title">
+                <p><span class="headings">Description: </span> {{this.description}}</p>
+            <p><span class="headings">Category: </span> {{this.category}}</p>
+            <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
         <div class="imgContainer" style="background-image: url({{this.imgURL}});">
           <!-- <img class="recent_posting_img" src="{{this.imgURL}}"> -->
 
-            <p><span class="headings">Description: </span> {{this.description}}</p>
-            <p><span class="headings">Category: </span> {{this.category}}</p>
-            <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
         </div>
                 <!-- <img class="responsive-img" src="{{this.imgURL}}"> -->
 
