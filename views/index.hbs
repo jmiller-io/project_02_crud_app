@@ -1,35 +1,30 @@
 <div class="billboard">
-      <div class="photograph">
-        <img class="responsive-img" src="../public/assets/index_bg.jpg">
-        <div class="billboard_content">
-          <h5>Find the Architecture around you MtnSighed.</h5>
-          <a href="/explore" class="waves-effect waves-teal btn-flat" style="background-color: #ee6e73; color: #FFF">Explore</a>
-        </div>
-      </div>
-      <div class="discoveryContainer">
-        <h3>Recently Discovered</h3>
-        <div>
-        {{#each spots}}
-            <div class="row">
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-image">
-          <img src="{{this.imgURL}}">
-        </div>
-        <div class="card-content">
-          <p><span class="headings">Description: </span> {{this.description}}</p>
-          <p><span class="headings">Category: </span> {{this.category}}</p>
-          <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
-        </div>
-      </div>
-    </div>
+  <div class = "card transparent z-depth-5 billboard_overlay">
+    <p>Discover the Architecture around you.</p>
+    <a href="/explore" class="waves-effect waves-teal btn-flat" style="background-color: #ee6e73; color: #FFF">Explore</a>
   </div>
-        {{/each}}
+
+</div>
+
+
+
+  <div class="discoveryContainer">
+    <h3>Recently Discovered</h3>
+      {{#each spots}}
+        <div class="imgContainer" style="background-image: url({{this.imgURL}});">
+          <!-- <img class="recent_posting_img" src="{{this.imgURL}}"> -->
+
+            <p><span class="headings">Description: </span> {{this.description}}</p>
+            <p><span class="headings">Category: </span> {{this.category}}</p>
+            <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
         </div>
-      </div>
+                <!-- <img class="responsive-img" src="{{this.imgURL}}"> -->
+
+      {{/each}}
+  </div>
 </div>
 <script>
-      $(document).ready( function() {
-        $('.button-collapse').sideNav();
-      })
-    </script>
+  $(document).ready( function() {
+    $('.button-collapse').sideNav();
+  })
+</script>
