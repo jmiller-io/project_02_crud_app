@@ -51,10 +51,7 @@ var generateRandomFileName = function(f) {
 // Router for home page
 router.get('/', (request, response, next) => {
   Structure.Model.find({}, (err, results) => {
-    let buildings = results.sort((a,b) => {
-      a+b
-    })
-    response.render('index', {title: 'Architectural.ly', spots: buildings})
+    response.render('index', {title: 'Architectural.ly', spots: results.reverse()})
   })
 })
 
@@ -119,7 +116,7 @@ router.post('/addSpot', upload.any(), function(request, response, next) {
 // handle updateSpot get request
 router.get('/updateSpot', function(request, response, next) {
   Structure.Model.find({}, (err, results) => {
-    response.render('updateSpot', {title: 'Edit Spot - Architectural.ly', items: results});
+    response.render('updateSpot', {title: 'Edit Spot - Architectural.ly', items: results.reverse()});
   })
 });
 
