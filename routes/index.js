@@ -63,7 +63,7 @@ router.get('/explore', (request, response, next) => {
 // Router for adding a new spot
 router.get('/addSpot', function(request, response, next) {
   // render the addSpot.hbs template and replace {{title}} with 'Add a New Spot'
-  response.render('addSpot', {title: 'Add Spot - Architectural.ly'});
+  response.render('addSpot', {title: 'Add Spot - Architectural.ly', user: request.session.user});
 });
 
 
@@ -98,6 +98,7 @@ router.post('/addSpot', upload.any(), function(request, response, next) {
           _id: request.body.user_id
         }, {$push: {locations: s}}, (err, results) => {
           if (err) response.send(err)
+            console.log(results)
           console.log('entry added')
           response.redirect('/profile')
         })
