@@ -48,7 +48,15 @@ var generateRandomFileName = function(f) {
 // var upload = multer({storage: storage});
 
 
-
+// Router for home page
+router.get('/', (request, response, next) => {
+  Structure.Model.find({}, (err, results) => {
+    let buildings = results.sort((a,b) => {
+      a+b
+    })
+    response.render('index', {title: 'Architectural.ly', spots: buildings})
+  })
+})
 
 
 // Router for adding a new spot
