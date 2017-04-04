@@ -10,10 +10,11 @@
         <h3>Recently Discovered</h3>
         <div>
         {{#each spots}}
-        <div class="card">
+            <div class="row">
+    <div class="col s12 m6">
+      <div class="card">
         <div class="card-image">
           <img src="{{this.imgURL}}">
-          <i class="material-icons activator btn-floating halfway-fab waves-effect waves-light red edt_btn">edit</i>
         </div>
         <div class="card-content">
           <p><span class="headings">Description: </span> {{this.description}}</p>
@@ -21,6 +22,8 @@
           <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
         </div>
       </div>
+    </div>
+  </div>
         {{/each}}
         </div>
       </div>
