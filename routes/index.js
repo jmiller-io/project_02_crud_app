@@ -51,7 +51,7 @@ var generateRandomFileName = function(f) {
 // Router for home page
 router.get('/', (request, response, next) => {
   Structure.Model.find({}, (err, results) => {
-    response.render('index', {title: 'Architectural.ly', spots: results.reverse()})
+    response.render('index', {title: 'Architectural.ly', spots: results.reverse().slice(0,4)})
   })
 })
 
