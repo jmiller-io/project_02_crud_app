@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
                         title: 'Profile - Architecturally',
                         avatar: req.session.user.image.url,
                         name: req.session.user.name.givenName,
-                        locations: results.locations
+                        locations: results.locations.reverse()
                     });
 
             });
