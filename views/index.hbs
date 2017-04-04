@@ -12,7 +12,14 @@
     <h3>Recently Discovered</h3>
       {{#each spots}}
 
-       <div class="row">
+      <div class="wrapper">
+        <img class="responsive-img img" src="{{this.imgURL}}">
+        <div class="img_overlay">
+          <p>{{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
+        </div>
+      </div>
+
+<!--        <div class="row">
         <div class="col s12 m7">
           <div class="card small">
             <div class="card-image">
@@ -25,7 +32,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
 
