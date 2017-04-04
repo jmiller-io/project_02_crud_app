@@ -1,10 +1,7 @@
+<section class="container">
 <h1>Hey, {{name}}!</h1>
 
-<ul>
-<li>Your Spots</li>
-</ul>
-
-{{#each locations}}
+  {{#each locations}}
     <!-- Commented out so users on Heroku cannot delete all the postings data -->
         <!-- <div>
           <button class="deleteEntry">Remove</button>
@@ -26,7 +23,7 @@
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4">Update Spot<i class="material-icons right">close</i></span>
 
-          <form id="updateForm" action="/spot/{{this._id}}" method="post" enctype="multipart/form-data">
+          <form id="updateForm" action="/updateSpot" method="post" enctype="multipart/form-data">
             <label for="img">Photo</label>
             <input type="file" name="myimg">
             <label for="location">Location</label>
@@ -65,4 +62,4 @@
   </div>
 
   {{/each}}
-   <script src="../public/updateSpots.js"></script>
+  <script src="../public/updateSpots.js"></script>
