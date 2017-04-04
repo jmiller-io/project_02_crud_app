@@ -32,3 +32,34 @@ h1 {
 .card-content {
   text-align: left;
 }
+
+.billboard .photograph {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid green;
+  position: absolute;
+  background-size: cover;
+  top: 0;
+  left: 0;
+}
+
+.billboard .photograph img {
+  position: relative;
+  width: 100%;
+}
+
+.billboard_content {
+  position: absolute;
+  top: 200px;
+  left: 0;
+  width: 100%;
+  color: #FFF;
+}
+
+/*@media (max-width: 991px) {
+  .billboard .photograph {
+    height: 400px!important;
+  }
+}
+*/
