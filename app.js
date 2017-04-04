@@ -11,7 +11,7 @@ const app = express();
 // CONFIG
 require('./db/config');
 app.use(morgan('dev'));
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 app.use(bodyParser.urlencoded({
     extended: true

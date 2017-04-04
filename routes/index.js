@@ -58,6 +58,10 @@ router.get('/', (request, response, next) => {
   })
 })
 
+// Router for explore page
+router.get('/explore', (request, response, next) => {
+  response.render('explore', {title: 'Explore - Architectural.ly'})
+})
 
 // Router for adding a new spot
 router.get('/addSpot', function(request, response, next) {
