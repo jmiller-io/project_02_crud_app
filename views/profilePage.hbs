@@ -1,0 +1,65 @@
+<section class="container">
+<h1>Hey, {{name}}!</h1>
+
+  {{#each locations}}
+    <!-- Commented out so users on Heroku cannot delete all the postings data -->
+        <!-- <div>
+          <button class="deleteEntry">Remove</button>
+          <p class="entryID" style="display: none">{{this._id}}</p>
+        </div> -->
+
+    <div class="row">
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{this.imgURL}}">
+          <i class="material-icons activator btn-floating halfway-fab waves-effect waves-light red edt_btn">edit</i>
+        </div>
+        <div class="card-content">
+          <p><span class="headings">Description: </span> {{this.description}}</p>
+          <p><span class="headings">Category: </span> {{this.category}}</p>
+          <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">Update Spot<i class="material-icons right">close</i></span>
+
+          <form id="updateForm" action="/updateSpot" method="post" enctype="multipart/form-data">
+            <label for="img">Photo</label>
+            <input type="file" name="myimg">
+            <label for="location">Location</label>
+            <input type="text" placeholder="Enter Latitude" id="lat" name="lat">
+            <input type="text" placeholder="Enter Longitude" id="lng" name="lng">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description">
+            <select id="categories" name="category">
+              <option value="" disabled selected>Choose a category</option>
+              <option value="A-Frame">A-Frame</option>
+              <option value="Art Deco">Art Deco</option>
+              <option value="Craftsman">Craftsman Bungalow</option>
+              <option value="Colonial">Colonial</option>
+              <option value="Mid-Century Modern">Mid-Century Modern</option>
+              <option value="Mediterranean">Mediterranean</option>
+              <option value="Modern">Modern</option>
+              <option value="Prairie">Prairie</option>
+              <option value="Ranch">Ranch</option>
+              <option value="Tudor">Tudor</option>
+              <option value="Spanish">Spanish</option>
+              <option value="Victorian">Victorian</option>
+              <option value="Oriental">Oriental</option>
+            </select>
+            <div class="input" style="display: none">
+              <input type="text" id="id" name="_id" readonly value="{{this._id}}">
+              <input type="text" name="_img" readonly value={{this.imgURL}}>
+            </div>
+            <button class="btn-floating waves-effect waves-light green" type="submit" name="action">
+              <i class="material-icons right">done</i>
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{/each}}
+  <script src="../public/updateSpots.js"></script>
