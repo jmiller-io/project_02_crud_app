@@ -98,7 +98,7 @@ h1 {
 
 @media (min-width: 992px) {
   .heroContainer {
-    width:45%;
+    width:50%;
     display: inline-block;
     float: left;
     height: 100%;
@@ -107,7 +107,7 @@ h1 {
   .discoveryContainer {
     display: inline-block;
     float: right;
-    max-width: 45%;
+    max-width: 50%;
   }
   .hero_overlay {
     bottom: 20.10em;
