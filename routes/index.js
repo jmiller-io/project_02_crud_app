@@ -1,9 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var mongo = require('mongodb').MongoClient;
-var objectId = require('mongodb').ObjectID;
-var multer = require('multer');
-var AWS = require('aws-sdk');
+const express = require('express');
+const router = express.Router();
+const handlebars = require('handlebars');
+const mongo = require('mongodb').MongoClient;
+const objectId = require('mongodb').ObjectID;
+const multer = require('multer');
+const AWS = require('aws-sdk');
+const User = require('../models/user.js');
+const Structure = require('../models/structure.js');
 
 const s3 = new AWS.S3();
 AWS.config.update(
@@ -17,10 +20,6 @@ AWS.config.update(
 const upload = multer({
   storage: multer.memoryStorage(),
 });
-
-
-// DB url
-var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/sandbox';
 
 // generates random file name and adds an extension
 var generateRandomFileName = function(f) {
@@ -49,13 +48,22 @@ var generateRandomFileName = function(f) {
 // var upload = multer({storage: storage});
 
 
+// Router for home page
+router.get('/', (request, response, next) => {
+  Structure.Model.find({}, (err, results) => {
+    response.render('index', {title: 'Architectural.ly', spots: results.reverse().slice(0,4)})
+  })
+})
 
-
+// Router for explore page
+router.get('/explore', (request, response, next) => {
+  response.render('explore', {title: 'Explore - Architectural.ly'})
+})
 
 // Router for adding a new spot
 router.get('/addSpot', function(request, response, next) {
   // render the addSpot.hbs template and replace {{title}} with 'Add a New Spot'
-  response.render('addSpot', {title: 'Add Spot - Architectural.ly'});
+  response.render('addSpot', {title: 'Add Spot - Architectural.ly', user: request.session.user});
 });
 
 
@@ -68,36 +76,84 @@ router.post('/addSpot', upload.any(), function(request, response, next) {
       Body: request.files[0].buffer,
       ACL: 'public-read'
     }, function(err) {
-      if(err) return response.status(400).send(err);
-        var entry = {
-          imgURL: 'https://archplotterdata.s3.amazonaws.com/' + file,
-          description: request.body.description,
-          category: request.body.category,
-          coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
-        };
-        mongo.connect(url, function(err, db) {
-          db.collection('buildings').insertOne(entry, function(err, result) {
-            console.log('Entry inserted');
-            db.close();
-            response.redirect('/');
-          });
-        });
+      if (err) return response.status(400).send(err);
+        // var entry = {
+        //   imgURL: 'https://archplotterdata.s3.amazonaws.com/' + file,
+        //   description: request.body.description,
+        //   category: request.body.category,
+        //   coordinates: {lat: parseFloat(request.body.lat), lng: parseFloat(request.body.lng)}
+        // };
+        let s = new Structure.Model({
+          "imgURL": 'https://archplotterdata.s3.amazonaws.com/' + file,
+          "description": request.body.description,
+          "category": request.body.category,
+          "coordinates": {
+            "lat": parseFloat(request.body.lat),
+            "lng": parseFloat(request.body.lng)
+          }
+        })
+        s.save();
+        // Add building to User
+        User.findOneAndUpdate({
+          _id: request.body.user_id
+        }, {$push: {locations: s}}, (err, results) => {
+          if (err) response.send(err)
+            console.log(results)
+          console.log('entry added')
+          response.redirect('/profile')
+        })
+
+        // mongo.connect(url, function(err, db) {
+        //   db.collection('buildings').insertOne(entry, function(err, result) {
+        //     console.log('Entry inserted');
+        //     db.close();
+        //     response.redirect('/');
+        //   });
+        // });
   });
 });
 
 
 // handle updateSpot get request
 router.get('/updateSpot', function(request, response, next) {
-  //console.log(request.query.id);
-  mongo.connect(url, function(err, db) {
-    db.collection('buildings').find({}).toArray(function(err, results) {
-      db.close();
-      response.render('updateSpot', {title: 'Edit Spot - Architectural.ly',
-                                 items: results
-      });
-    });
-  });
+  Structure.Model.find({}, (err, results) => {
+    response.render('updateSpot', {title: 'Edit Spot - Architectural.ly', items: results.reverse()});
+  })
 });
+
+
+// Update Spot
+router.post('/spot/:id', upload.any(), function(req, res, next) {
+    var entry = {};
+    for (var key in req.body) {
+        if (req.body[key] !== "") {
+            entry[key] = req.body[key];
+        }
+    }
+
+    if (req.files[0]) {
+        var file = generateRandomFileName(req.files[0]);
+        entry['imgURL'] = 'https://archplotterdata.s3.amazonaws.com/' + file;
+        s3.putObject({
+            Bucket: process.env.S3_BUCKET,
+            Key: file,
+            Body: req.files[0].buffer,
+            ACL: 'public-read'
+        }, function(err) {
+            if (err) {
+                return res.status(400).send(err);
+            }
+        });
+    }
+
+    // Updates Spot document
+    Structure.Model.update({
+        _id: req.params.id
+    }, entry, function(err, results) {
+        if (!err) {res.redirect('/profile')}
+    });
+});
+
 
 
 // Handle UpdateSpot POST Request
@@ -180,12 +236,9 @@ router.get('/deleteSpot?:id', function(request, response, next) {
 
 // route presenting json data
 router.get('/data.json', function (request, response) {
-  mongo.connect(url, function(err, db) {
-    db.collection('buildings').find({}).toArray(function(err, results) {
-      db.close();
-      response.json(results);
-    });
-  });
+  Structure.Model.find({}, (err, results) => {
+    response.send(results)
+  })
 });
 
 module.exports = router;

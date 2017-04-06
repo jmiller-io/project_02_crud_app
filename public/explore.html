@@ -14,8 +14,7 @@
           <a href="#!" class="brand-logo">Architectural.ly</a>
           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul class="left hide-on-med-and-down">
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="/explore.html">Explore</a></li>
+            <li><a href="/">Explore</a></li>
             <li><a href="/auth/login">Profile</a></li>
             <li><a href="/addSpot">Add a Spot</a></li>
             <li><a href="/updateSpot">Update Spots</a></li>
@@ -24,34 +23,19 @@
       </nav>
     </div>
     <ul class="side-nav" id="mobile-demo">
-      <li><a href="/index.html">Home</a></li>
-      <li><a href="/explore.html">Explore</a></li>
+      <li><a href="/">Explore</a></li>
       <li><a href="/auth/login">Profile</a></li>
       <li><a href="/addSpot">Add a Spot</a></li>
       <li><a href="/updateSpot">Update Spots</a></li>
     </ul>
   </header>
   <body class="center-align">
-    <div class="billboard">
-      <div class="photograph">
-        <img class="responsive-img" src="/assets/index_bg.jpg">
-        <div class="billboard_content">
-          <h5>Find the Architecture around you.</h5>
-          <a href="/explore.html" class="waves-effect waves-teal btn-flat" style="background-color: #ee6e73; color: #FFF">Explore</a>
-        </div>
-      </div>
-      <div class="discoveryContainer">
-        <h3>Recently Discovered</h3>
-      </div>
-    </div>
     <!-- <a href="/updateSpot" class="waves-effect waves-light btn">Update Spots</a>
     <a href="/addSpot" class="waves-effect waves-light btn">Add a Spot</a> -->
+    <div id="map"></div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
-    <script>
-      $(document).ready( function() {
-        $('.button-collapse').sideNav();
-      })
-    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCawYohs-Q1mDjKO0-WwFZnKREoBnmEKX4&callback=initMap"></script>
+    <script src="main.js"></script>
   </body>
 </html>

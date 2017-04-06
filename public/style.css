@@ -32,3 +32,85 @@ h1 {
 .card-content {
   text-align: left;
 }
+
+/*.card {
+  max-height: 400px;
+  max-width: 400px;
+}*/
+
+/*Dont touch anything above this*/
+.heroContainer {
+  position: relative;
+  background-image: url("../public/assets/index_bg.jpg");
+  background-repeat: no-repeat;
+  height: 150vh;
+  background-size: cover;
+  max-width: 991px;
+}
+
+.discoveryContainer {
+  display: inline-block;
+}
+
+.hero_overlay {
+  position: absolute;
+  bottom: 5.5em;
+  left: 25%;
+  right: 20%;
+  display: table-cell;
+}
+
+.hero_overlay > p {
+  font-size: 24px;
+  padding: .5em;
+  color: #FFF;
+}
+
+.img {
+  position: relative;
+  max-height: 200px;
+  max-width: 400px;
+}
+
+.img_overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 25%;
+  color: #FFF;
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  display: inline-block;
+  position: relative;
+  max-width: 400px;
+  max-height: 200px;
+}
+
+
+@media (max-width:991px) {
+.heroContainer,.hero_Overlay,.searchOverlay>.heroImage{height:400px!important}
+.hero_overlay .banner .box-holder{top:22%!important}
+.social-stripe-container{bottom:10px}
+.discoveryContainerParent{padding-right:26px}
+}
+
+@media (min-width: 992px) {
+  .heroContainer {
+    width:50%;
+    display: inline-block;
+    float: left;
+    height: 100%;
+    background-position: center;
+  }
+  .discoveryContainer {
+    display: inline-block;
+    float: right;
+    max-width: 50%;
+  }
+  .hero_overlay {
+    bottom: 20.10em;
+  }
+}
+
