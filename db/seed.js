@@ -43,21 +43,21 @@ const Structure = require('../models/structure.js');
 // u2.locations.push(t)
 
 
-function seed() {
+// function seed() {
 
 
-// Create user
-  var user = new User({
-    _id: 111074352570139300000,
-    name: 'Jake',
-    avatar: "https://lh5.googleusercontent.com/-3jpfhZvZnSA/AAAAAAAAAAI/AAAAAAAAPBc/pSI1lvFg2PU/photo.jpg?sz=50",
-    locations: []
-  })
+// // Create user
+//   var user = new User({
+//     _id: 111074352570139300000,
+//     name: 'Jake',
+//     avatar: "https://lh5.googleusercontent.com/-3jpfhZvZnSA/AAAAAAAAAAI/AAAAAAAAPBc/pSI1lvFg2PU/photo.jpg?sz=50",
+//     locations: []
+//   })
 
-  user.save()
-}
+//   user.save()
+// }
 seed()
-importSpots(addToUser)
+importSpots()
 // var a = new Structure.Model({
 //   "imgURL": "https://archplotterdata.s3.amazonaws.com/frcnxiqyjtjrovojfkcdpecnoyshyccg.jpeg",
 //   "description":"The Gamble House","category":"Craftsman",
