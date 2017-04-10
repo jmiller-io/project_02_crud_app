@@ -58,9 +58,41 @@ function initMap() {
       marker.addListener('click', function() {
         infowindow.open(map, marker);
       });
+
+      // create Gallery view
+      let $div = $('<div>');
+      $div.addClass('row');
+      $div.html(`<div class="col s12 m6">
+      <div class="card">
+        <div class="card-image">
+          <img src="${obj.imgURL}">
+        </div>
+        <div class="card-content">
+          <p><span class="headings">Description: </span> ${obj.description}</p>
+          <p><span class="headings">Category: </span> ${obj.category}</p>
+          <p><span class="headings">Location: </span> ${obj.coordinates.lat},  ${obj.coordinates.lng}</p>
+        </div>
+      </div>
+    </div>`)
+    $('div#gallery').append($div)
+
+
     });
   });
+  $('div#gallery').hide();
 };
+
+// Show gallery
+$('#gallery_btn').click(function(event) {
+  $('div#map').hide();
+  $('div#gallery').show();
+});
+
+// Show Map
+$('#map_btn').click(function(event) {
+  $('div#gallery').hide()
+  $('div#map').show();
+});
 
 $(document).ready( function() {
   $('.button-collapse').sideNav();
