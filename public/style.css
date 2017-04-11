@@ -90,10 +90,9 @@ h1 {
 
 
 @media (max-width:991px) {
-.heroContainer,.hero_Overlay,.searchOverlay>.heroImage{height:400px!important}
-.hero_overlay .banner .box-holder{top:22%!important}
-.social-stripe-container{bottom:10px}
-.discoveryContainerParent{padding-right:26px}
+  .heroContainer,.hero_Overlay,.searchOverlay>.heroImage{height:400px!important}
+  .hero_overlay .banner .box-holder{top:22%!important}
+  .discoveryContainerParent{padding-right:26px}
 }
 
 @media (min-width: 992px) {
@@ -114,6 +113,7 @@ h1 {
   }
 }
 
-#dl {
+#options {
   text-align: left;
+  margin-top: 0.5%;
 }
