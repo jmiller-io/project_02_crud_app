@@ -61,7 +61,7 @@ function initMap() {
 
       // create Gallery view
       let $div = $('<div>');
-      $div.addClass('row');
+      //$div.addClass('row');
       $div.html(`<div class="col s12 m6">
       <div class="card">
         <div class="card-image">
