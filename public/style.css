@@ -19,6 +19,11 @@ body, html {
   height: 100%;
 }
 
+p {
+  margin: 0;
+  text-align: left;
+}
+
 h1 {
   color: #ee6e73;
 }
