@@ -123,7 +123,7 @@ router.get('/updateSpot', function(request, response, next) {
 
 
 // Update Spot
-router.post('/spot/:id', upload.any(), function(req, res, next) {
+router.post('/spots/:id', upload.any(), function(req, res, next) {
     var entry = {};
     for (var key in req.body) {
         if (req.body[key] !== "") {
