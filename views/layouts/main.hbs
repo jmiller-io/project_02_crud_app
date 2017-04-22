@@ -19,6 +19,7 @@
             <li><a href="/explore">Explore</a></li>
             <li><a href="/auth/login">Profile</a></li>
             <li><a href="/addSpot">Add a Spot</a></li>
+            <li><a href="#modal1">Sign in or Join</a></li>
             <!-- <li><a href="/updateSpot">Update Spots</a></li> -->
           </ul>
         </div>
@@ -33,7 +34,22 @@
     </ul>
 </header>
 <body class="center-align">
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+    </div>
+  </div>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function(){
+      // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+      $('.modal').modal();
+    });
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
     {{{ body }}}
 </body>
