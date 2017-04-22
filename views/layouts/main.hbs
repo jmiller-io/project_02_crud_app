@@ -36,17 +36,24 @@
 <body class="center-align">
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
+      <h4>Welcome to Architectural.ly</h4>
+      <div class="modal-body">
+        <div class="module-nav">
+          <ul>
+            <li>Sign in</li>
+            <li>New account</li>
+          </ul>
+        </div>
+
+      </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+      <p>Or connect with: <span>ico</span></p>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script>
     $(document).ready(function(){
-      // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
       $('.modal').modal();
     });
   </script>
