@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 
 var StructureSchema = new mongoose.Schema({
+  architect: String,
+  buildDate: Date,
   description: String,
   category: String,
   imgURL: String,
