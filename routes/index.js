@@ -72,6 +72,7 @@ router.get('/addSpot', function(request, response, next) {
 
 // handle post request on addSpot
 router.post('/addSpot', upload.any(), function(request, response, next) {
+  console.log(request.body)
   var file = generateRandomFileName(request.files[0]);
   s3.putObject({
       Bucket: process.env.S3_BUCKET,
@@ -89,6 +90,8 @@ router.post('/addSpot', upload.any(), function(request, response, next) {
         let s = new Structure.Model({
           "imgURL": 'https://archplotterdata.s3.amazonaws.com/' + file,
           "description": request.body.description,
+          "architect": request.body.architect,
+          "built": request.body.built,
           "category": request.body.category,
           "coordinates": {
             "lat": parseFloat(request.body.lat),

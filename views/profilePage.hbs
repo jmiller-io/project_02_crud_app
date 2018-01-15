@@ -16,6 +16,8 @@
           <i class="material-icons activator btn-floating halfway-fab waves-effect waves-light red edt_btn">edit</i>
         </div>
         <div class="card-content">
+          <p><span class="headings">Architect: </span>{{this.architect}}</p>
+          <p><span class="headings">Built in: </span>{{this.built}}</p>
           <p><span class="headings">Description: </span> {{this.description}}</p>
           <p><span class="headings">Category: </span> {{this.category}}</p>
           <p><span class="headings">Location: </span> {{this.coordinates.lat}},  {{this.coordinates.lng}}</p>
@@ -29,6 +31,10 @@
             <label for="location">Location</label>
             <input type="text" placeholder="Enter Latitude" id="lat" name="lat">
             <input type="text" placeholder="Enter Longitude" id="lng" name="lng">
+            <label for="architect">Architect</label>
+            <input type="text" name="architect" id="architect">
+            <label for="built">Built</label>
+            <input type="text" name="built" class="datepicker">
             <label for="description">Description</label>
             <input type="text" id="description" name="description">
             <select id="categories" name="category">
